@@ -1,25 +1,21 @@
-# Use an official base image (you can choose any suitable base image)
-FROM ubuntu:20.04
-
-# Set environment variables
-ENV APP_HOME /app
-ENV DEBIAN_FRONTEND=noninteractive
+# Use an official base image
+FROM ubuntu:latest
 
 # Install necessary packages
-RUN apt-get update && \
-    apt-get install -y \
-    python3 \
-    python3-pip \
+RUN apt-get update && apt-get install -y \
+    package1 \
+    package2 \
+    # ... (add any other packages you need) \
     && rm -rf /var/lib/apt/lists/*
 
+# Set environment variables
+ENV MY_VARIABLE=value
+
+# Copy application code or files into the container
+COPY . /app
+
 # Set the working directory
-WORKDIR $APP_HOME
+WORKDIR /app
 
-# Copy application code into the container
-COPY . $APP_HOME
-
-# Install application dependencies
-RUN pip3 install -r requirements.txt
-
-# Define the entry point command or script
-CMD ["python3", "app.py"]
+# Define entry point command or script
+ENTRYPOINT ["./start.sh"]
