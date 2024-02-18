@@ -1,22 +1,17 @@
-# Use an official base image
-FROM ubuntu:20.04
+# Use the Fedora base image
+FROM fedora:latest
 
-# Update the package lists and install necessary packages
-RUN apt-get update && \
-    apt-get install -y package1 && \
-    apt-get install -y package2 && \
-    # ... (add any other packages you need) \
-    rm -rf /var/lib/apt/lists/*
+# Run an upgrade of the system
+RUN dnf -y upgrade
 
+# Install required applications
+RUN dnf -y install tuxpaint vim httpd
 
-# Set environment variables
-ENV MY_VARIABLE=value
+# Add myinfo.html to /var/www/html/
+COPY myinfo.html /var/www/html/
 
-# Copy application code or files into the container
-COPY . /app
+# Expose port 80/tcp
+EXPOSE 80/tcp
 
-# Set the working directory
-WORKDIR /app
-
-# Define entry point command or script
-ENTRYPOINT ["./start.sh"]
+# Enable httpd service
+ENTRYPOINT ["/usr/sbin/httpd", "-DFOREGROUND"]
