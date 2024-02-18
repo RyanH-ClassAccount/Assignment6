@@ -2,11 +2,12 @@
 FROM ubuntu:latest
 
 # Update the package lists and install necessary packages
-RUN apt-get update
-RUN apt-get install -y package1
-RUN apt-get install -y package2
-# ... (add any other packages you need) \
-&& rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y package1 && \
+    apt-get install -y package2 && \
+    # ... (add any other packages you need) \
+    rm -rf /var/lib/apt/lists/*
+
 
 # Set environment variables
 ENV MY_VARIABLE=value
