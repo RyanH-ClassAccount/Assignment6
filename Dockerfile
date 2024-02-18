@@ -7,9 +7,6 @@ RUN dnf -y upgrade
 # Install required applications
 RUN dnf -y install tuxpaint vim httpd
 
-# Add myinfo.html to /var/www/html/
-COPY myinfo.html /var/www/html/
-
 # Expose port 80/tcp
 EXPOSE 80/tcp
 
